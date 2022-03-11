@@ -6,11 +6,12 @@ import ButtonBox from "./components/ButtonBox";
 import Button from "./components/Button";
 
 const btnValues = [
-  ["C", "+-", "%", "/"],
-  [7, 8, 9, "X"],
-  [4, 5, 6, "-"],
-  [1, 2, 3, "+"],
-  [0, ".", "="],
+  ["="],
+  ["MC","MR","M-","M+","√"],
+  ["+/-",7,8,9,"%"],
+  ["▶",4,5,6,"X"],
+  ["C",1,2,3,"-"],
+  ["AC",0,"00","・","+"],
 ];
 
 const toLocaleString = (num) =>
@@ -19,12 +20,20 @@ const toLocaleString = (num) =>
 const removeSpaces = (num) => num.toString().replace(/\s/g, "");
 
 const App = () => {
+  // ステートの宣言
   let [calc, setCalc] = useState({
+    // 選択された記号
     sign: "",
+    // 入力された値
     num: 0,
+    // 計算された値
     res: 0,
   });
 
+
+  //////////////////////////////////////////////////////////////////
+  // 数字ボタン（0〜9）のいずれかが押されたときだけ起動
+  //////////////////////////////////////////////////////////////////
   const numClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
@@ -43,6 +52,9 @@ const App = () => {
     }
   };
 
+  //////////////////////////////////////////////////////////////////
+  // commaClickHandler関数は、小数点(.)が押されたときだけ実行されます。
+  //////////////////////////////////////////////////////////////////
   const comaClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
@@ -53,6 +65,9 @@ const App = () => {
     });
   };
 
+  //////////////////////////////////////////////////////////////////
+  // signClickHandler関数は、ユーザーが+、-、*、/のいずれかを押したときに実行されます。
+  //////////////////////////////////////////////////////////////////
   const signClickHandler = (e) => {
     setCalc({
       ...calc,
@@ -62,6 +77,9 @@ const App = () => {
     });
   };
 
+  //////////////////////////////////////////////////////////////////
+  // equalsClickHandler関数は、equalsボタン（=）が押されたときの結果を計算する関数です。
+  //////////////////////////////////////////////////////////////////
   const equalsClickHandler = () => {
     if (calc.sign && calc.num) {
       const math = (a, b, sign) =>
@@ -91,6 +109,10 @@ const App = () => {
     }
   };
 
+  //////////////////////////////////////////////////////////////////
+  // invertClickHandler関数は、まず入力された値（num）または計算された値（res）があるかどうかを確認し、
+  // -1を掛けて反転させる関数です。
+  //////////////////////////////////////////////////////////////////  
   const invertClickHandler = () => {
     setCalc({
       ...calc,
@@ -100,6 +122,10 @@ const App = () => {
     });
   };
 
+  //////////////////////////////////////////////////////////////////
+  // percentClickHandler関数は、入力された値（num）または計算された値（res）があるかどうかをチェックし、
+  // 組み込みのMath.pow関数（底値から指数への累乗を返す）を使ってパーセンテージを計算する関数です。
+  //////////////////////////////////////////////////////////////////  
   const percentClickHandler = () => {
     let num = calc.num ? parseFloat(removeSpaces(calc.num)) : 0;
     let res = calc.res ? parseFloat(removeSpaces(calc.res)) : 0;
@@ -111,6 +137,10 @@ const App = () => {
     });
   };
 
+  //////////////////////////////////////////////////////////////////
+  // resetClickHandler関数は、calcのすべての初期値をデフォルトにし、
+  // 電卓アプリが最初にレンダリングされたときのcalcの状態を返します。
+  ////////////////////////////////////////////////////////////////// 
   const resetClickHandler = () => {
     setCalc({
       ...calc,
