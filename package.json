@@ -1,11 +1,12 @@
 {
-  "homepage": "https://calculator-madza.netlify.app",
+  "homepage": "https://marina1017.github.io/calculator",
   "name": "calculator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^6.2.2",
     "react-scripts": "3.4.1",
     "react-textfit": "^1.1.1"
   },
