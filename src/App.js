@@ -8,16 +8,17 @@ import Button from "./components/Button";
 const btnValues = [
   ["="],
   ["MC","MR","M-","M+","√"],
-  ["+/-",7,8,9,"%"],
+  ["+/-",7,8,9,"/"],
   ["▶",4,5,6,"X"],
   ["C",1,2,3,"-"],
-  ["AC",0,"00","・","+"],
+  ["AC",0,"00",".","+"],
 ];
 
-const toLocaleString = (num) =>
-  String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 ");
+const toLocaleString = (num) => String(num);
 
 const removeSpaces = (num) => num.toString().replace(/\s/g, "");
+
+
 
 const App = () => {
   // ステートの宣言
@@ -28,8 +29,13 @@ const App = () => {
     num: 0,
     // 計算された値
     res: 0,
+    //　待機中か
+    isWaitting: false
   });
 
+  const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
 
   //////////////////////////////////////////////////////////////////
   // 数字ボタン（0〜9）のいずれかが押されたときだけ起動
@@ -38,15 +44,16 @@ const App = () => {
     e.preventDefault();
     const value = e.target.innerHTML;
 
+    console.log("calc.num",calc.num)
+    console.log("value",value)
     if (removeSpaces(calc.num).length < 16) {
       setCalc({
         ...calc,
         num:
-          calc.num === 0 && value === "0"
-            ? "0"
-            : removeSpaces(calc.num) % 1 === 0
+          calc.num === 0 && value === "0" ? "0" : removeSpaces(calc.num) % 1 === 0
             ? toLocaleString(Number(removeSpaces(calc.num + value)))
-            : toLocaleString(calc.num + value),
+            : toLocaleString(calc.num + value)
+            ,
         res: !calc.sign ? 0 : calc.res,
       });
     }
@@ -80,7 +87,13 @@ const App = () => {
   //////////////////////////////////////////////////////////////////
   // equalsClickHandler関数は、equalsボタン（=）が押されたときの結果を計算する関数です。
   //////////////////////////////////////////////////////////////////
-  const equalsClickHandler = () => {
+  async function equalsClickHandler(){
+    // ちょっとまってから計算結果を出す
+    setCalc({
+      ...calc,
+      isWaitting: true
+    })
+    await sleep(5000);
     if (calc.sign && calc.num) {
       const math = (a, b, sign) =>
         sign === "+"
@@ -105,6 +118,7 @@ const App = () => {
               ),
         sign: "",
         num: 0,
+        isWaitting: false,
       });
     }
   };
@@ -147,12 +161,13 @@ const App = () => {
       sign: "",
       num: 0,
       res: 0,
+      isWaitting: false
     });
   };
 
   return (
     <Wrapper>
-      <Screen value={calc.num ? calc.num : calc.res} />
+      <Screen value={ calc.isWaitting ? "おまちください" : calc.num ? calc.num : calc.res} />
       <ButtonBox>
         {btnValues.flat().map((btn, i) => {
           return (
@@ -163,7 +178,7 @@ const App = () => {
               onClick={
                 btn === "C"
                   ? resetClickHandler
-                  : btn === "+-"
+                  : btn === "+/-"
                   ? invertClickHandler
                   : btn === "%"
                   ? percentClickHandler
