@@ -282,7 +282,7 @@ const App = () => {
     <Wrapper>
       <Screen value={ calc.isWaitting ? waitSetting.waitWard : calc.num ? calc.num : calc.res} />
       <ButtonBox>
-        {btnValues.flat().map((btn, i) => {
+        {btnValues.reduce((acc, val) => acc.concat(val), []).map((btn, i) => {
           return (
             <Button
               key={i}
