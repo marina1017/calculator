@@ -1,7 +1,7 @@
 button {
   border: none;
   background-color: rgb(34, 34, 34);
-  font-size: 35px;
+  font-size: 28px;
   color: rgb(209, 22, 22);
   font-weight: bold;
   cursor: pointer;
@@ -16,6 +16,8 @@ button:hover {
 .equals {
   grid-column: 1/6;
   background-color: rgb(243, 61, 29);
+  position: relative;
+  top: -15px;
 }
 
 .equals:hover {

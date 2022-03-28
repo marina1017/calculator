@@ -1,8 +1,9 @@
 .buttonBox {
   width: 100%;
-  height: calc(100% - 110px);
+  height: calc(100% - 120px);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  grid-gap: 7px;
+  grid-gap: 9px;
+  margin-top: 40px;
 }
