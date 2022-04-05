@@ -19,7 +19,7 @@ const toLocaleString = (num) => String(num);
 const removeSpaces = (num) => num.toString().replace(/\s/g, "");
 
 const waitSetting = {
-  waitTime: 1000,
+  waitTime: 10000,
   waitWard: "おまちください",
 }
 

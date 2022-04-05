@@ -1,6 +1,6 @@
 .buttonBox {
   width: 100%;
-  height: calc(100% - 150px);
+  height: calc(100% - 160px);
   margin-top: 50px;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(6, 1fr);
