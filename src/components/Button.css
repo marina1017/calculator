@@ -7,6 +7,8 @@ button {
   cursor: pointer;
   border-radius: 6px;
   outline: none;
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
 }
 
 button:hover {
@@ -19,6 +21,8 @@ button:hover {
   position: relative;
   top: -15px;
   height: 180px;
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
 }
 
 .equals:hover {

@@ -12,6 +12,4 @@ body {
   align-items: center;
   justify-content: center;
   background-color: #000000;
-  -webkit-touch-callout:none;
-  -webkit-user-select:none;
 }
